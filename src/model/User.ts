@@ -25,7 +25,7 @@ export interface User extends Document {
     email: string,
     password: string,
     verifyCode: string,
-    expirtyDate: Date,
+    expiryDate: Date,
     isVerified: boolean,
     isAccesptingMsg: boolean,
     message: Message[]
@@ -52,7 +52,7 @@ const userSchema: Schema<User> = new Schema({
         type: String,
         required: [true, "Code is required"]
     },
-    expirtyDate: {
+    expiryDate: {
         type: Date,
         required: [true, "Expiry Date is required"]
     },
@@ -62,7 +62,7 @@ const userSchema: Schema<User> = new Schema({
     },
     isAccesptingMsg: {
         type: Boolean,
-        default : true
+        default: true
     },
     message: [messageSchema]
 })
@@ -70,6 +70,8 @@ const userSchema: Schema<User> = new Schema({
 // typescript model - Model - to check if it exist and have model interface
 // normal model - model - to create the new one
 
-const userModel = (mongoose.models.User as mongoose.Model<User>) || (mongoose.model<User>("userSchema"))
+const userModel = (mongoose.models.User as mongoose.Model<User>) || (mongoose.model<User>("User", userSchema))
 
-export default userModel ;
+export const messageModel = (mongoose.models.Message as mongoose.Model<Message>) || mongoose.model<Message>("Message", messageSchema);
+
+export default userModel;
