@@ -21,8 +21,8 @@ export async function POST(request: Request) {
             )
         }
         const otp = randomstring.generate({ length: 5, charset: '123456789' });
-        const expirtyDate = new Date();
-        expirtyDate.setHours(expirtyDate.getHours() + 1);
+        const expiryDate = new Date();
+        expiryDate.setHours(expiryDate.getHours() + 1);
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const existingUserVerifiedByEmail = await userModel.findOne({ email });
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
                 existingUserVerifiedByEmail.password = hashedPassword;
                 existingUserVerifiedByEmail.verifyCode = otp;
                 // new Date(Date.now() + 3600000)
-                existingUserVerifiedByEmail.expirtyDate = expirtyDate
+                existingUserVerifiedByEmail.expiryDate = expiryDate
                 await existingUserVerifiedByEmail.save();
             }
 
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
                 username,
                 isVerified: false,
                 verifyCode: otp,
-                expirtyDate,
+                expiryDate,
                 isAccesptingMsg: true,
                 message: []
             });
