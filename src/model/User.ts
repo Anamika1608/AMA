@@ -28,7 +28,7 @@ export interface User extends Document {
     expiryDate: Date,
     isVerified: boolean,
     isAccesptingMsg: boolean,
-    message: Message[]
+    messages: Message[]
 }
 
 const userSchema: Schema<User> = new Schema({
@@ -64,7 +64,7 @@ const userSchema: Schema<User> = new Schema({
         type: Boolean,
         default: true
     },
-    message: [messageSchema]
+    messages: [messageSchema]
 })
 
 // typescript model - Model - to check if it exist and have model interface
